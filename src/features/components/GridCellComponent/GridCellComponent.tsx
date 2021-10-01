@@ -4,15 +4,16 @@ import {setCellData} from '../InnerMapComponent/gridSliceActions'
 
 export interface CellProps {
     id: string
-    value?: string
+    title: string
+    value: string
 }
 
-const GridCellComponent: React.FC<CellProps> = ({id, value}) => {
+const GridCellComponent: React.FC<CellProps> = ({id, value, title}) => {
 
     const dispatch = useAppDispatch();
 
     const selectThisCell = () => {
-        dispatch(setCellData(id))
+        dispatch(setCellData(title))
     }
 
     return (
@@ -21,7 +22,7 @@ const GridCellComponent: React.FC<CellProps> = ({id, value}) => {
             className='single-cell'
             onClick={selectThisCell}
         >
-            {id}
+            {title}
         </div>
     );
 };

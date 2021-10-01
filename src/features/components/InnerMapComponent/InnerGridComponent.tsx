@@ -11,13 +11,15 @@ const InnerGridComponent = () => {
     return (
         <div>
             {
-                mapBuilder(rows, columns, cellData).map(row =>
-                    <div className='inner-grid'>
+                mapBuilder(rows, columns, cellData).map((row,index) =>
+                    <div key={`${index}-inner-grid`} className='inner-grid'>
                         {
                             row.map(cell =>
                                 <GridCellComponent
                                     id={cell.id}
+                                    title={cell.title}
                                     value={cell.value}
+                                    key={`${cell.title}-grid-cell-cs`}
                                 />
                             )
                         }

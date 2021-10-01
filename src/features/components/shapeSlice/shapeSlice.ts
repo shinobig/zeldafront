@@ -2,39 +2,42 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CellProps} from '../GridCellComponent/GridCellComponent'
 import {ShapeHolderProps} from '../ShapeHolder/ShapeHolder';
 import {SetMultipleCellDataInterface} from "../InnerMapComponent/gridSlice";
+import axios from "../../utils/axios/axiosInstance";
+import {Dispatch} from 'redux'
 
 export interface ShapeInitialState {
     allShapes: ShapeHolderProps[]
 }
 
-export const shapesTests = [
-    {
-        id: 't1',
-        rows: 1,
-        columns: 1,
-        image: ['red']
-    }, {
-        id: 't2',
-        rows: 2,
-        columns: 2,
-        image: ['blue', 'blue', 'blue', 'blue']
-    }, {
-        id: 't3',
-        rows: 3,
-        columns: 3,
-        image: ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green']
-    },
-]
-
-const initialState = {
-    allShapes: shapesTests
+const initialState: ShapeInitialState = {
+    allShapes: []
 }
 
 export const shapeSlice = createSlice({
     name: 'shape',
     initialState,
-    reducers: {}
+    reducers: {
+        setAllShapes(state, action) {
+            state.allShapes = action.payload
+        }
+    }
 })
 
+export const {setAllShapes} = shapeSlice.actions
+
 export default shapeSlice.reducer
+
+export function getAllShapes() {
+    return async (dispatch: Dispatch) => {
+        try {
+            await axios.get('shapes/all/?expand=shape_cells.cell')
+                .then(response => {
+                    dispatch(setAllShapes(response.data))
+
+                })
+        } catch (e) {
+            console.error(e)
+        }
+    }
+}
 

@@ -1,20 +1,15 @@
 import React from "react";
-import {useAppDispatch} from '../../../app/hooks';
-import {setCellData} from '../InnerMapComponent/gridSliceActions'
+import {CellProps} from '../GridCellComponent/GridCellComponent'
 
 
-export interface ShapeCellProps {
-    image? : string
-}
-
-const ShapeCell: React.FC<ShapeCellProps> = ({image}) => {
+const ShapeCell: React.FC<CellProps> = ({id, title, value}) => {
 
     return (
         <div
             className='single-cell-shape'
-        style={{backgroundColor: image? image : ''}}
+            style={{backgroundColor: value ? value : ''}}
         >
-           shapec
+            shapec
         </div>
     );
 };

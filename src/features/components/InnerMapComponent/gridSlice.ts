@@ -1,22 +1,7 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction, current} from '@reduxjs/toolkit';
 import {CellProps} from '../GridCellComponent/GridCellComponent'
 import {ShapeHolderProps} from '../ShapeHolder/ShapeHolder';
 import {getAdjacentCells} from './InnerGridComponentUtils'
-
-const testCellData = (): CellProps[] => {
-    let cellData: CellProps[] = [];
-
-    // x - y
-    for (let x = 0; x < 10; x++) {
-        for (let y = 0; y < 10; y++) {
-            cellData.push({
-                id: `${x}-${y}`,
-                value: ''
-            })
-        }
-    }
-    return cellData;
-}
 
 
 export interface GridState {
@@ -34,15 +19,15 @@ export interface SetShapeHolderDataInterface {
     shape: ShapeHolderProps
 }
 
-const initialState = {
-    columns: 10,
-    rows: 10,
-    cellData: testCellData(),
+const initialState: GridState = {
+    columns: 0,
+    rows: 0,
+    cellData: [],
     shape: {
         id: '',
         rows: 0,
         columns: 0,
-        image: ['']
+        shape_cells: []
     }
 }
 
@@ -52,20 +37,20 @@ export const gridSlice = createSlice({
     reducers: {
         setMultipleCellData: (state, action: PayloadAction<string>) => {
             const allCells = [...state.cellData]
-            const clickedCellId : string  = action.payload;
-
-            let cellsToChange = getAdjacentCells(clickedCellId, state.cellData, state.shape);
-
-
-            allCells.forEach(cell => {
+            const clickedCellId: string = action.payload;
+            let cellsToChange = getAdjacentCells(clickedCellId, current(state.cellData), current(state.shape));
+            console.log('cells to change', cellsToChange)
+            allCells.forEach((cell: CellProps) => {
                 cellsToChange.forEach(singleCellToChange => {
-                    if (singleCellToChange.id === cell.id) {
+                    if (cell && singleCellToChange?.id === cell?.id) {
                         cell.value = singleCellToChange.value;
                     }
                 })
             })
+
             state.cellData = allCells;
         },
+
         setShapeData: (state, action: PayloadAction<SetShapeHolderDataInterface>) => {
             state.shape = action.payload.shape;
         }

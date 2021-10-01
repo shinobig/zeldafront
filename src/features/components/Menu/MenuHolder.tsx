@@ -1,22 +1,30 @@
-import React from 'react';
-import ShapeHolder from "../ShapeHolder/ShapeHolder";
-import {useAppSelector} from "../../../app/hooks";
+import React, {useEffect} from 'react';
+import ShapeHolder, {ShapeHolderProps} from "../ShapeHolder/ShapeHolder";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+import {getAllShapes} from "../shapeSlice/shapeSlice";
 
 const MenuHolder = () => {
-
-    const {allShapes} = useAppSelector(state => state.shapes)
+    const dispatch = useAppDispatch()
+    const {allShapes}: { allShapes: ShapeHolderProps[] } = useAppSelector(state => state.shapes)
     const {shape} = useAppSelector(state => state.grid)
+
+    useEffect(() => {
+        dispatch(getAllShapes())
+    }, [dispatch]);
+
 
     return (
         <div className='row'>
             {
-                allShapes && allShapes.map(shape =>
-                    <div className='col-md-6'>
+                allShapes && allShapes.length > 0 && allShapes.map((shape, index) =>
+                    <div
+                        key={`${index}-shape`}
+                        className='col-md-6'>
                         <ShapeHolder
                             id={shape.id}
                             rows={shape.rows}
                             columns={shape.columns}
-                            image={shape.image}
+                            shape_cells={shape.shape_cells}
                         />
                     </div>
                 )

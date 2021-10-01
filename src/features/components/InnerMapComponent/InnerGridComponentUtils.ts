@@ -14,9 +14,16 @@ export const rowBulder = (rows: number): number[] => {
 
 }
 
+/**
+ export interface CellProps {
+    id: string
+    title: string
+    value: string
+} */
+
 export const mapBuilder = (rows: number, columns: number, cellData: CellProps[]): Array<CellProps[]> => {
 
-    let buildedGrid: Array<CellProps[]> = [];
+    let buildedGrid: Array<any> = [];
 
     if (rows > 0 && columns > 0) {
         if (cellData.length > 0) {
@@ -27,9 +34,13 @@ export const mapBuilder = (rows: number, columns: number, cellData: CellProps[])
             }
         } else {
             for (let r = 0; r < rows; r++) {
-                let row = [];
+                let row: CellProps[] = [];
                 for (let c = 0; c < columns; c++) {
-                    row.push({id: `${r}-${c}`})
+                    row.push({
+                        id: `${r}-${c}`,
+                        title: `${r}-${c}`,
+                        value: '',
+                    })
                 }
                 buildedGrid.push(row)
             }
@@ -39,22 +50,26 @@ export const mapBuilder = (rows: number, columns: number, cellData: CellProps[])
     return buildedGrid;
 }
 
-export const getAdjacentCells = (clickedId: string, cellData: CellProps[], selectedShape: ShapeHolderProps) => {
+export const getAdjacentCells = (clickedTitle: string, cellData: CellProps[], selectedShape: ShapeHolderProps) => {
 
-    if(selectedShape.columns > 0 && selectedShape.rows > 0){
-        const [x, y] = clickedId.split('-');
+    console.log('selected shape', selectedShape)
+    if (selectedShape.columns > 0 && selectedShape.rows > 0) {
+        const [x, y] = clickedTitle.split('-');
 
-        let cellsToChangeIds = [clickedId]
+        let cellsToChangeIds: string[] = []
 
-        for(let row = parseInt(x); row < selectedShape.rows + parseInt(x); row ++){
-            for(let column = parseInt(y); column < selectedShape.columns + parseInt(y); column++){
+        for (let row = parseInt(x); row < selectedShape.rows + parseInt(x); row++) {
+            for (let column = parseInt(y); column < selectedShape.columns + parseInt(y); column++) {
                 cellsToChangeIds.push(`${row}-${column}`)
             }
         }
-
+        console.log('cellsId', cellsToChangeIds)
+        console.log('celldata', cellData)
         let cellsToChange = cellData.filter(cell => cellsToChangeIds.includes(cell.id));
-
-        cellsToChange.forEach((cell, index) => {cell.value = selectedShape.image[index]})
+        console.log('celldata', cellsToChange)
+        cellsToChange.forEach((cell, index) => {
+            cell.value = selectedShape.shape_cells[index].value
+        })
 
         return cellsToChange
     }
