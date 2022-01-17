@@ -9,22 +9,22 @@ export interface ShapeHolderProps {
     id: string
     rows: number
     columns: number
-    shape_cells: CellProps[]
+    shapeCells: CellProps[]
 }
 
 
-const ShapeHolder: React.FC<ShapeHolderProps> = ({id, rows, columns, shape_cells}) => {
+const ShapeHolder: React.FC<ShapeHolderProps> = ({id, rows, columns, shapeCells}) => {
 
     const dispatch = useAppDispatch();
 
     const assignShapeData = () => {
-        dispatch(setShapeData({shape: {id: id, rows: rows, columns: columns, shape_cells: shape_cells}}))
+        dispatch(setShapeData({shape: {id: id, rows: rows, columns: columns, shapeCells: shapeCells}}))
     }
 
     return (
         <div>
             {
-                shapeBuilder(rows, columns, shape_cells).map((shapeRow, index) =>
+                shapeBuilder(rows, columns, shapeCells).map((shapeRow, index) =>
                     <div
                         key={`${index}-shape-row`}
                         className='inner-grid'

@@ -30,10 +30,10 @@ export default shapeSlice.reducer
 export function getAllShapes() {
     return async (dispatch: Dispatch) => {
         try {
-            await axios.get('shapes/all/?expand=shape_cells.cell')
+            await axios.get('shapes/')
                 .then(response => {
+                    console.log('response', response)
                     dispatch(setAllShapes(response.data))
-
                 })
         } catch (e) {
             console.error(e)

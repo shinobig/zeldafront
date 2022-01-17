@@ -24,7 +24,7 @@ const MenuHolder = () => {
                             id={shape.id}
                             rows={shape.rows}
                             columns={shape.columns}
-                            shape_cells={shape.shape_cells}
+                            shapeCells={shape.shapeCells}
                         />
                     </div>
                 )

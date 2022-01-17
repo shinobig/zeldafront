@@ -63,12 +63,9 @@ export const getAdjacentCells = (clickedTitle: string, cellData: CellProps[], se
                 cellsToChangeIds.push(`${row}-${column}`)
             }
         }
-        console.log('cellsId', cellsToChangeIds)
-        console.log('celldata', cellData)
         let cellsToChange = cellData.filter(cell => cellsToChangeIds.includes(cell.id));
-        console.log('celldata', cellsToChange)
         cellsToChange.forEach((cell, index) => {
-            cell.value = selectedShape.shape_cells[index].value
+            cell.value = selectedShape.shapeCells[index].value
         })
 
         return cellsToChange
