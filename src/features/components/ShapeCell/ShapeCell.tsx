@@ -1,15 +1,18 @@
 import React from "react";
 import {CellProps} from '../GridCellComponent/GridCellComponent'
+import {IMAGE_MANAGER} from "../../../images/ImagesManager";
 
 
 const ShapeCell: React.FC<CellProps> = ({id, title, value}) => {
 
+
+    const image = IMAGE_MANAGER[value];
     return (
         <div
             className='single-cell-shape'
             style={{backgroundColor: value ? value : ''}}
         >
-            shapec
+            <img src={image} alt={value}/>
         </div>
     );
 };

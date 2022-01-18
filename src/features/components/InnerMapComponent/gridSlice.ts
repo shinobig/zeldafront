@@ -20,8 +20,8 @@ export interface SetShapeHolderDataInterface {
 }
 
 const initialState: GridState = {
-    columns: 0,
-    rows: 0,
+    columns: 10,
+    rows: 10,
     cellData: [],
     shape: {
         id: '',
