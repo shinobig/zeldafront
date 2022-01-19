@@ -1,7 +1,8 @@
-import {createAsyncThunk, createSlice, PayloadAction, current} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction, current, Dispatch} from '@reduxjs/toolkit';
 import {CellProps} from '../GridCellComponent/GridCellComponent'
 import {ShapeHolderProps} from '../ShapeHolder/ShapeHolder';
 import {getAdjacentCells} from './InnerGridComponentUtils'
+import axios from "axios";
 
 
 export interface GridState {
@@ -57,6 +58,24 @@ export const gridSlice = createSlice({
     }
 })
 
-export const {setMultipleCellData, setShapeData} = gridSlice.actions
+export const {setMultipleCellData, setShapeData} = gridSlice.actions;
+
+export function fetchMap(id: string){
+
+
+
+    return async(dispatch: Dispatch) => {
+        try{
+            await axios.get('maps')
+                .then(response => {
+                    console.log(response)
+                })
+
+        }catch (e){
+            console.error(e)
+        }
+    }
+
+}
 
 export default gridSlice.reducer
