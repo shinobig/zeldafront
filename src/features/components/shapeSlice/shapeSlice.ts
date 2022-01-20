@@ -32,7 +32,6 @@ export function getAllShapes() {
         try {
             await axios.get('shapes/')
                 .then(response => {
-                    console.log('response', response)
                     dispatch(setAllShapes(response.data))
                 })
         } catch (e) {

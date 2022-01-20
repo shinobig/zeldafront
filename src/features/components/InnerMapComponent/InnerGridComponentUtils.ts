@@ -40,6 +40,7 @@ export const mapBuilder = (rows: number, columns: number, cellData: CellProps[])
                         id: `${r}-${c}`,
                         title: `${r}-${c}`,
                         value: '',
+                      coordinates: `${r}-${c}`
                     })
                 }
                 buildedGrid.push(row)
