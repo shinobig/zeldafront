@@ -4,19 +4,20 @@ import {setCellData} from '../InnerMapComponent/gridSliceActions'
 import {IMAGE_MANAGER} from "../../../images/ImagesManager";
 
 export interface CellProps {
-  id: string
+  _id: string
   title: string
   value: string,
-  coordinates: string
+  coordinates: string,
+  index?: number
+  cellId?: string
 }
 
-const GridCellComponent: React.FC<CellProps> = ({id, value, title, coordinates}) => {
+const GridCellComponent: React.FC<CellProps> = ({_id, value, title, coordinates}) => {
 
   const dispatch = useAppDispatch();
 
   const selectThisCell = () => {
 
-    console.log(title)
 
     dispatch(setCellData(coordinates))
   }
@@ -28,7 +29,7 @@ const GridCellComponent: React.FC<CellProps> = ({id, value, title, coordinates})
       className='single-cell'
       onClick={selectThisCell}
     >
-      <img style={{width: '100%'}} src={image}/>
+      <img src={image}/>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import ShapeHolder, {ShapeHolderProps} from "../ShapeHolder/ShapeHolder";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 import {getAllShapes} from "../shapeSlice/shapeSlice";
+import MenuButtons from "./MenuButtons/MenuButtons";
 
 const MenuHolder = () => {
   const dispatch = useAppDispatch()
@@ -29,6 +30,7 @@ const MenuHolder = () => {
         )
       }
       <button onClick={() => console.log(shape)}>Shape</button>
+      <MenuButtons />
     </div>
   );
 };

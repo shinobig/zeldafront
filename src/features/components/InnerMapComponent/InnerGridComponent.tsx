@@ -2,8 +2,6 @@ import GridCellComponent from "../GridCellComponent/GridCellComponent";
 import {useAppSelector as useSelector} from '../../../app/hooks';
 import {rowBulder, mapBuilder} from './InnerGridComponentUtils';
 import {RootState} from "../../../app/store";
-import {useState} from "react";
-import {log} from "util";
 
 const InnerGridComponent = () => {
 
@@ -18,7 +16,7 @@ const InnerGridComponent = () => {
               row.map(cell => {
 
                   return <GridCellComponent
-                    id={cell.id}
+                    _id={cell._id}
                     title={cell.title}
                     value={cell.value}
                     key={`${cell.title}-grid-cell-cs`}

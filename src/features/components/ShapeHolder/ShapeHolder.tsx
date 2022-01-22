@@ -35,8 +35,8 @@ const ShapeHolder: React.FC<ShapeHolderProps> = ({_id, rows, columns, shapeCells
                 <ShapeCell
                   coordinates={cell.coordinates}
                   value={cell.value}
-                  id={cell.id}
-                  key={`${cell.id}-shape-cell`}
+                  _id={cell._id}
+                  key={`${cell._id}-shape-cell`}
                   title={cell.title}
                 />
               )
